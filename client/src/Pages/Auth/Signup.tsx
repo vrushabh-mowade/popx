@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import InputBox from "../../Components/InputBox";
 
-// Define Schema using Zod
+
 const signupSchema = z.object({
   fullName: z.string().min(2, "Full Name must be at least 2 characters"),
   phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
@@ -12,13 +12,13 @@ const signupSchema = z.object({
   companyName: z.string().optional(),
 });
 
-// Define Type from Schema
+
 type SignupFormData = z.infer<typeof signupSchema>;
 
 const Signup = () => {
   const navigate = useNavigate();
 
-  // State for form inputs and errors
+  
   const [formData, setFormData] = useState<SignupFormData>({
     fullName: "",
     phoneNumber: "",
@@ -29,20 +29,16 @@ const Signup = () => {
 
   const [errors, setErrors] = useState<Partial<Record<keyof SignupFormData, string>>>({});
 
-  // Handle Input Changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle Form Submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Validate form using Zod
     const result = signupSchema.safeParse(formData);
 
     if (!result.success) {
-      // Extract errors
       const formattedErrors: Partial<Record<keyof SignupFormData, string>> = {};
       result.error.errors.forEach((err) => {
         const field = err.path[0] as keyof SignupFormData;
@@ -52,7 +48,7 @@ const Signup = () => {
       return;
     }
 
-    // If no errors, navigate to account page
+    
     navigate("/account");
   };
 

@@ -6,7 +6,7 @@ interface InputBoxProps {
   required?: boolean;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string; // Accept error message as a prop
+  error?: string;
   
 }
 
@@ -14,7 +14,6 @@ const InputBox: React.FC<InputBoxProps> = ({
   label,
   type,
   name,
-  placeholder,
   required,
   value,
   onChange,
@@ -42,7 +41,6 @@ const InputBox: React.FC<InputBoxProps> = ({
         {label} {required && <span className="text-red-500">*</span>}
       </label>
 
-      {/* Display Error Message if Exists */}
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );
